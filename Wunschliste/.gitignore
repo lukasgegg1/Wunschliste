@@ -1,1 +1,11 @@
-/build/
+# --- Eclipse-spezifische Dateien ---
+# Diese Dateien enthalten oft lokale Pfade, die auf anderen PCs nicht funktionieren
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+local.properties
+.settings/
+.loadpath

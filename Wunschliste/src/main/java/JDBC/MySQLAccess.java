@@ -11,7 +11,7 @@ public class MySQLAccess extends JDBCAccess {
         dbDrivername = "com.mysql.cj.jdbc.Driver";
         dbURL        = "jdbc:mysql://localhost:3306/Wunschliste";
         dbUser       = "root";
-        dbPassword   = "MySQLRootPassword!"; 
+        dbPassword   = "MySQLRootPassword!";
         dbSchema     = "Wunschliste";
     }
 

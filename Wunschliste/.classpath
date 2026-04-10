@@ -13,10 +13,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/talhakurucay/Desktop/Master - Wirtschaftsinformatik/2.Semester/Realisierung Anwendungssysteme 1/mysql-connector-j-9.6.0.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/lukas/Desktop/eclipse/mysql-connector-j-9.3.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

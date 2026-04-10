@@ -73,36 +73,36 @@ public class NutzerDAO {
 
         return eingeloggterNutzer;
     }
-    
+
     public boolean isUsernameTaken(String username) {
         String sql = "SELECT COUNT(*) FROM Nutzer WHERE username = ?";
-        
+
         try {
             MySQLAccess access = new MySQLAccess();
             Connection conn = access.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            
+
             pstmt.setString(1, username);
-            
+
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 // Wenn die Zahl größer als 0 ist, existiert der Name bereits
                 return rs.getInt(1) > 0;
             }
-            
+
             rs.close();
             pstmt.close();
             conn.close();
-            
+
         } catch (SQLException e) {
             System.err.println("Fehler bei der Prüfung des Benutzernamens:");
             e.printStackTrace();
         }
-        
+
         return false; // Im Zweifel (Fehler) gehen wir davon aus, dass er nicht existiert oder behandeln es im Flow
     }
-    
+
     public boolean updatePassword(String username, String newPassword) {
         String sql = "UPDATE Nutzer SET password = ? WHERE username = ?";
 
