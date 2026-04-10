@@ -1,0 +1,174 @@
+/* --- Wunschliste View Styles (Optimiert) --- */
+
+.list-container {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: var(--shadow-medium);
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline; /* Richtet Text an der Grundlinie aus */
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 1.2rem;
+    margin-bottom: 2.5rem;
+    gap: 20px; /* Sicherer Abstand zwischen Titel und Datum */
+}
+
+.list-header h1 {
+    font-size: 1.8rem;
+    color: var(--dark);
+    margin: 0;
+    flex: 1; /* Nimmt verfügbaren Platz ein */
+}
+
+/* Verkleinertes Datum-Badge */
+.days-badge {
+    background: #f1f2f6;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8rem; /* Kleiner gemacht */
+    color: var(--text-muted);
+    white-space: nowrap; /* Verhindert Zeilenumbruch */
+    align-self: center;
+}
+
+/* --- NEU: Container für Button & Share-Link --- */
+.owner-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Richtet Elemente unten bündig aus */
+    margin-bottom: 2.5rem;
+    gap: 30px;
+    flex-wrap: wrap; /* Wichtig für Mobile-Ansicht */
+}
+
+.owner-actions {
+    margin-bottom: 0; /* Margin entfernt, da Container das regelt */
+}
+
+.btn-add-wish {
+    display: inline-block;
+    border: 2px solid var(--dark);
+    color: var(--dark);
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-add-wish:hover {
+    background-color: var(--dark);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* --- NEU: Share-Link Styling --- */
+.share-container {
+    background: #f8f9fa;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    flex: 1;
+    max-width: 400px;
+    min-width: 300px;
+}
+
+.share-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.share-box {
+    display: flex;
+    gap: 8px;
+}
+
+.share-box input {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    background: white;
+    color: var(--dark);
+    font-family: monospace;
+}
+
+.btn-copy {
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+}
+
+.btn-copy:hover {
+    background: #000;
+}
+
+/* Tabelle */
+.table-section {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+.list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.list-table th {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.list-table td {
+    padding: 18px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Letzte Zeile ohne Border */
+.list-table tr:last-child td {
+    border-bottom: none;
+}
+
+.stars {
+    color: #f1c40f;
+    font-size: 1.2rem;
+}
+
+.action-reserve {
+    background-color: var(--primary);
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.action-reserve:hover {
+    background-color: var(--primary-hover);
+    text-decoration: none !important;
+}

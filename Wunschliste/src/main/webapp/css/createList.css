@@ -1,0 +1,117 @@
+/* --- Create List Page Styles --- */
+
+.create-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+}
+
+.create-card {
+    background: var(--white);
+    padding: 3.5rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+    width: 100%;
+    max-width: 550px; /* Etwas breiter als Login für bessere Lesbarkeit der Inputs */
+    border-top: 6px solid var(--primary); /* Lila Akzent oben */
+}
+
+.create-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.create-header h1 {
+    font-size: 2rem;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.create-header .subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Formular Styling */
+.create-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Spezielles Styling für das Date-Input, damit es zum Rest passt */
+.input-group input[type="date"] {
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+    background-color: var(--white);
+}
+
+/* Der "Liste speichern" Button */
+.btn-create {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2);
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-create:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3);
+}
+
+.btn-create:active {
+    transform: translateY(0);
+}
+
+/* Responsivität */
+@media (max-width: 600px) {
+    .create-card {
+        padding: 2.5rem 1.5rem;
+        box-shadow: none; /* Auf Handy oft cleaner ohne Schatten */
+        background: transparent;
+    }
+    
+    .create-container {
+        padding: 1rem;
+    }
+}

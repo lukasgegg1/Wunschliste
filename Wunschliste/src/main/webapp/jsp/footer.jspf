@@ -1,0 +1,7 @@
+<footer>
+    <p>&copy; 2026 WishList Pro</p>
+    <ul class="footer-links">
+        <li><a href="contact.jsp">Kontakt & Über Uns</a></li>
+        <li><a href="policy.jsp">Datenschutz</a></li>
+    </ul>
+</footer>

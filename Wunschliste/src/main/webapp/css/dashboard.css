@@ -1,0 +1,162 @@
+/* --- Dashboard Styles --- */
+
+/* Navigation anpassen: Auf dem Dashboard braucht man den Login-Button nicht mehr */
+.nav-item-login { display: none !important; }
+
+/* 1. Container & Layout */
+.dashboard-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    width: 100%;
+}
+
+.dashboard-header-section {
+    border-bottom: 2px solid var(--primary);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.dashboard-header-section h1 {
+    font-size: 1.8rem;
+    color: var(--dark);
+    margin: 0;
+}
+
+/* 2. Leerer Zustand (Empty State - Mockup 2) */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+.btn-create-large {
+    background-color: var(--white);
+    color: var(--dark);
+    border: 2px solid #e1e1e1;
+    padding: 18px 40px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-create-large:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-2px);
+}
+
+.empty-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* 3. Befüllter Zustand (Populated State - Mockup 1) */
+.action-bar {
+    margin-bottom: 2rem;
+}
+
+.btn-create-small {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--dark);
+    border: 2px solid #e1e1e1;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-create-small:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* 4. Listen-Karten */
+.lists-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.list-card {
+    background-color: var(--white);
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.list-card:hover {
+    box-shadow: var(--shadow-soft);
+    border-color: #d1d1d1;
+}
+
+.list-info h2 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.25rem;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.list-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* 5. Aktionen in der Karte */
+.list-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.8rem;
+}
+
+.action-link {
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.action-link:hover {
+    color: var(--primary);
+}
+
+.action-link.delete:hover {
+    color: #ff4d4d; /* Rotes Hover-Feedback für Löschen */
+}
+
+/* 6. Responsivität für Mobilgeräte */
+@media (max-width: 600px) {
+    .list-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.2rem;
+    }
+
+    .list-actions {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 1rem;
+    }
+}

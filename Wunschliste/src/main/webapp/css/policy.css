@@ -1,0 +1,123 @@
+/* --- Privacy Policy Page Styles --- */
+.privacy-container {
+    max-width: 850px;
+    margin: 0 auto;
+    /* Reduziere das Padding deutlich */
+    padding: 2rem 2rem 4rem; 
+    
+    /* Zentrierung im Viewport, falls wenig Text da ist */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 200px); /* Zieht Header/Footer ab */
+}
+
+.privacy-card {
+    background: var(--white);
+    padding: 3rem 4rem; /* Etwas kompakteres Padding oben/unten */
+    border-radius: 25px;
+    box-shadow: var(--shadow-soft);
+    margin-top: 1rem; /* Kleiner, definierter Abstand nach oben */
+}
+
+.privacy-header {
+    position: static !important; /* Erzwingt normales Verhalten */
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    background: transparent; /* Verhindert, dass er einen eigenen Hintergrund hat */
+    box-shadow: none; /* Entfernt den Schatten der Navbar-Regel */
+}
+
+.last-updated {
+    font-size: 0.8rem;
+    color: var(--primary);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.privacy-header h1 {
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.privacy-header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Content Structure */
+.policy-block {
+    margin-bottom: 2.5rem;
+}
+
+.policy-block h2 {
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.policy-block p, .policy-block li {
+    line-height: 1.7;
+    color: var(--text-main);
+    font-size: 1.05rem;
+}
+
+.policy-block ul {
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+.policy-block li {
+    margin-bottom: 0.5rem;
+}
+
+.policy-block a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.policy-block a:hover {
+    text-decoration: underline;
+}
+
+/* Special Notice Box */
+.notice {
+    background-color: #f8f7ff; /* Ein ganz sanftes Lila */
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px dashed var(--primary); /* Gestrichelter Rand wirkt wie ein Zertifikat */
+    margin-top: 3rem;
+}
+
+.notice h3 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notice p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--dark);
+    margin: 0;
+}
+
+/* Responsivität */
+@media (max-width: 600px) {
+    .privacy-card {
+        padding: 2.5rem 1.5rem;
+    }
+    .privacy-header h1 {
+        font-size: 2rem;
+    }
+}

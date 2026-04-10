@@ -1,0 +1,36 @@
+<%@ page import="beans.Nutzer" %>
+<%
+    Nutzer navUser = (Nutzer) session.getAttribute("eingeloggterNutzer");
+%>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="homepage.jsp">WishList<strong>Pro</strong></a>
+        </div>
+        
+        <ul class="nav-links">
+            <%-- Startseite Link --%>
+            <li class="nav-item-back-home">
+                <a href="homepage.jsp" class="nav-link-dezent">Startseite</a>
+            </li>
+            
+            <%-- "So funktioniert's" (Nur Homepage, dezent) --%>
+            <li class="nav-item-homepage">
+                <a href="homepage.jsp#how-it-works" class="nav-link-dezent">So funktioniert's</a>
+            </li>
+
+            <% if (navUser == null) { %>
+                <li class="nav-item-login">
+                    <a href="loginView.jsp" class="login-btn">Login</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item-profile">
+                    <a href="dashboardView.jsp" class="nav-link-dezent">Mein Profil</a>
+                </li>
+                <li class="nav-item-logout">
+                    <a href="../appl/logoutAppl.jsp" class="nav-link-dezent logout-special">Abmelden</a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+</header>
