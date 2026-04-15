@@ -20,7 +20,7 @@
         neueListe.setTitle(title);
         neueListe.setOwnerId(aktuellerNutzer.getUserid());
         
-        // --- LOGIK START: SHARE-TOKEN GENERIEREN ---
+
         // Wir erzeugen einen zufälligen 8-stelligen String
         String randomToken = UUID.randomUUID().toString().substring(0, 8);
         neueListe.setShareToken(randomToken); 

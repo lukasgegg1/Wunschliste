@@ -10,28 +10,24 @@ import beans.Nutzer;
 public class NutzerDAO {
 
     public boolean registerUser(Nutzer nutzer) {
-        String sql = "INSERT INTO Nutzer (username, password) VALUES (?, ?)";
+        String sql = "INSERT INTO Nutzer (username, password, email) VALUES (?, ?, ?)";
 
         try {
-            // 1. Verbindung aufbauen
             MySQLAccess access = new MySQLAccess();
             Connection conn = access.getConnection();
 
-            // 2. PreparedStatement vorbereiten
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            // 3. Platzhalter füllen
+            // Platzhalter füllen
             pstmt.setString(1, nutzer.getUsername());
             pstmt.setString(2, nutzer.getPassword());
+            pstmt.setString(3, nutzer.getEmail());
 
-            // 4. Befehl ausführen
             int rowsAffected = pstmt.executeUpdate();
 
-            // Ressourcen schließen
             pstmt.close();
             conn.close();
 
-            // Gibt true zurück, wenn mindestens eine Zeile in der DB verändert wurde
             return rowsAffected > 0;
 
         } catch (SQLException e) {
@@ -60,6 +56,7 @@ public class NutzerDAO {
                 eingeloggterNutzer.setUserid(rs.getInt("userid"));
                 eingeloggterNutzer.setUsername(rs.getString("username"));
                 eingeloggterNutzer.setPassword(rs.getString("password"));
+                eingeloggterNutzer.setEmail(rs.getString("email")); 
             }
 
             rs.close();
@@ -73,56 +70,37 @@ public class NutzerDAO {
 
         return eingeloggterNutzer;
     }
-
-    public boolean isUsernameTaken(String username) {
-        String sql = "SELECT COUNT(*) FROM Nutzer WHERE username = ?";
-
+    
+    public boolean isEmailTaken(String email) {
+        String sql = "SELECT COUNT(*) FROM Nutzer WHERE email = ?";
         try {
             MySQLAccess access = new MySQLAccess();
             Connection conn = access.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-
-            pstmt.setString(1, username);
-
+            pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
-
             if (rs.next()) {
-                // Wenn die Zahl größer als 0 ist, existiert der Name bereits
                 return rs.getInt(1) > 0;
             }
-
-            rs.close();
-            pstmt.close();
             conn.close();
-
         } catch (SQLException e) {
-            System.err.println("Fehler bei der Prüfung des Benutzernamens:");
             e.printStackTrace();
         }
-
-        return false; // Im Zweifel (Fehler) gehen wir davon aus, dass er nicht existiert oder behandeln es im Flow
+        return false;
     }
 
-    public boolean updatePassword(String username, String newPassword) {
-        String sql = "UPDATE Nutzer SET password = ? WHERE username = ?";
-
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+        String sql = "UPDATE Nutzer SET password = ? WHERE email = ?";
         try {
             MySQLAccess access = new MySQLAccess();
             Connection conn = access.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-
             pstmt.setString(1, newPassword);
-            pstmt.setString(2, username);
-
-            int rowsAffected = pstmt.executeUpdate();
-
-            pstmt.close();
+            pstmt.setString(2, email);
+            int rows = pstmt.executeUpdate();
             conn.close();
-
-            return rowsAffected > 0;
-
+            return rows > 0;
         } catch (SQLException e) {
-            System.err.println("Fehler beim Zurücksetzen des Passworts:");
             e.printStackTrace();
             return false;
         }

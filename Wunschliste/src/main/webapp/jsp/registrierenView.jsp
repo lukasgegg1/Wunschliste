@@ -27,6 +27,12 @@
                     <input type="text" id="username" name="username" placeholder="Max Mustermann" required>
                 </div>
 
+                <%-- NEU: E-Mail Feld --%>
+                <div class="input-group">
+                    <label for="email">E-Mail Adresse</label>
+                    <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
+                </div>
+
                 <div class="input-group">
                     <label for="password">Passwort wählen</label>
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
@@ -38,12 +44,12 @@
                 </div>
 
                 <div class="form-terms">
-    				<label>
-				        <input type="checkbox" required> 
-				        Ich akzeptiere die 
-				        <a href="policy.jsp" target="_blank" rel="noopener noreferrer">Datenschutzbestimmungen. ↗</a>
-				    </label>
-				</div>
+                    <label>
+                        <input type="checkbox" required> 
+                        Ich akzeptiere die 
+                        <a href="policy.jsp" target="_blank" rel="noopener noreferrer">Datenschutzbestimmungen. ↗</a>
+                    </label>
+                </div>
 
                 <button type="submit" class="btn-register">Konto erstellen</button>
             </form>

@@ -82,7 +82,7 @@
 				<p class="share-label">Liste mit Gästen teilen:</p>
 				<div class="share-box">
 					<input type="text" id="shareInput"
-						value="http://localhost:8080/WishListPro/jsp/guestView.jsp?token=<%=aktuelleListe.getShareToken()%>"
+						value="<%=aktuelleListe.getShareToken()%>"
 						readonly>
 					<button onclick="copyToClipboard()" class="btn-copy">Kopieren</button>
 				</div>

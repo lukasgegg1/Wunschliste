@@ -2,13 +2,13 @@
 <%@ page import="beans.Nutzer" %>
 
 <%
-    // 1. Parameter aus dem Formular abrufen
-    String userEingabe = request.getParameter("username");
-    String passNeu     = request.getParameter("newPassword");
+    // 1. Parameter aus dem Formular abrufen (name="email" aus der View)
+    String emailEingabe = request.getParameter("email");
+    String passNeu      = request.getParameter("newPassword");
     String passBestätig = request.getParameter("passwordRepeat");
 
     // 2. Grundlegende Validierung
-    if (userEingabe == null || userEingabe.isEmpty() || passNeu == null || passNeu.isEmpty()) {
+    if (emailEingabe == null || emailEingabe.isEmpty() || passNeu == null || passNeu.isEmpty()) {
         response.sendRedirect("../jsp/passwortVergessenView.jsp?error=emptyFields");
         return;
     }
@@ -18,19 +18,17 @@
         
         Nutzer helperNutzer = new Nutzer();
         
-        // 4. Methode in der Bean aufrufen (diese prüft intern via DAO, ob der User existiert)
-        boolean erfolg = helperNutzer.resetPassword(userEingabe, passNeu);
+        // 4. Wir übergeben nun die Email statt dem Benutzernamen
+        boolean erfolg = helperNutzer.resetPassword(emailEingabe, passNeu);
 
         if (erfolg) {
-            // Passwort wurde geändert -> Weiter zum Login
             response.sendRedirect("../jsp/loginView.jsp?success=passwordReset");
         } else {
-            // Entweder Nutzer nicht gefunden oder Passwort zu kurz
+            // Nutzer mit dieser Email nicht gefunden oder Passwort zu kurz
             response.sendRedirect("../jsp/passwortVergessenView.jsp?error=userNotFoundOrInvalid");
         }
         
     } else {
-        // Passwörter stimmen nicht überein
         response.sendRedirect("../jsp/passwortVergessenView.jsp?error=passwordMismatch");
     }
 %>

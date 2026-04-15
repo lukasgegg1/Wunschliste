@@ -36,8 +36,8 @@
             <form action="../appl/passwortVergessenAppl.jsp" method="POST" class="forgot-form">
                 
                 <div class="input-group">
-                    <label for="username">Benutzername</label>
-                    <input type="text" id="username" name="username" placeholder="Dein Benutzername" required>
+                    <label for="email">E-Mail</label>
+                    <input type="text" id="email" name="email" placeholder="Max-Musterman@gmail.com" required>
                 </div>
 
                 <div class="input-group">

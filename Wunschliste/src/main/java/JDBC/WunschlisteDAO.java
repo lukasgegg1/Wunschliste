@@ -101,7 +101,7 @@ public class WunschlisteDAO {
         Wunschliste w = new Wunschliste();
         w.setListId(rs.getInt("ListID"));
         w.setTitle(rs.getString("Title"));
-        w.setShareToken(rs.getString("ShareToken")); // Wichtig für die Anzeige
+        w.setShareToken(rs.getString("ShareToken"));
 
         java.sql.Date sqlDate = rs.getDate("EventDate");
         if (sqlDate != null) {
