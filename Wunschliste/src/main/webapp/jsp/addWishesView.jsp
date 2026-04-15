@@ -60,7 +60,7 @@
                     <input type="number" step="0.01" name="price" placeholder="Preis (€)" required>
                     <input type="number" name="priority" placeholder="Prio (1-5)" required>
                     <input type="text" name="link" placeholder="Link (Optional)">
-                    <button type="submit" class="btn-add">noch einen Wunsch hinzufügen</button>
+                    <button type="submit" class="btn-add">Wunsch hinzufügen</button>
                 </div>
             </form>
         </section>

@@ -39,7 +39,8 @@
 }
 
 .input-group {
-    margin-bottom: 1.2rem;
+    /* Leicht reduziert von 1.2rem auf 1rem für bessere vertikale Balance */
+    margin-bottom: 1rem; 
 }
 
 .input-group label {
@@ -68,7 +69,8 @@
 }
 
 .form-terms {
-    margin: 1rem 0 2rem;
+    /* Abstände optimiert für das zusätzliche Feld */
+    margin: 0.5rem 0 1.5rem;
     font-size: 0.85rem;
     color: var(--text-muted);
 }
@@ -90,13 +92,18 @@
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
     transition: all 0.3s ease;
-    transform: scale(0.98);
-    filter: brightness(0.9);
+    /* Standardmäßig voll sichtbar, Skalierung bei Interaktion */
+    transform: scale(1);
 }
 
 .btn-register:hover {
     background-color: var(--primary-hover);
     transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.btn-register:active {
+    transform: scale(0.98);
 }
 
 /* Footer Link */
@@ -113,10 +120,10 @@
     text-decoration: none;
 }
 
-/* --- Navigation Fix fÃ¼r die Registrierungsseite --- */
+/* --- Navigation Fix für die Registrierungsseite --- */
 
 .nav-item-login {
-    display: None;
+    display: none;
 }
 
 @media (max-width: 500px) {

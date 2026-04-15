@@ -6,6 +6,7 @@
     String userEingabe = request.getParameter("username");
     String passEingabe = request.getParameter("password");
     String passRepeat  = request.getParameter("passwordRepeat");
+    String email  = request.getParameter("email");
 
     NutzerDAO dao = new NutzerDAO();
 
@@ -13,7 +14,7 @@
     if (passEingabe != null && !passEingabe.isEmpty() && passEingabe.equals(passRepeat)) {
         
         // 2. Prüfung: Existiert der Benutzername bereits?
-        if (dao.isUsernameTaken(userEingabe)) {
+        if (dao.isEmailTaken(userEingabe)) {
             // Name vergeben -> Zurück zur Registrierung mit Fehler-Parameter
             response.sendRedirect("../jsp/registrierenView.jsp?error=usernameTaken");
         } else {
@@ -22,6 +23,7 @@
             Nutzer neuerNutzer = new Nutzer();
             neuerNutzer.setUsername(userEingabe);
             neuerNutzer.setPassword(passEingabe);
+            neuerNutzer.setEmail(email);
 
             // 4. Validierung (z.B. Passwortlänge) und Registrierung
             if (neuerNutzer.validateCredentials()) {

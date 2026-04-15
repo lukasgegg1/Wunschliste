@@ -7,6 +7,7 @@ public class Nutzer {
 	private int userid;
 	private String username;
 	private String password;
+	private String email;
 
 	public Nutzer() {
 
@@ -18,6 +19,7 @@ public class Nutzer {
 
         if (validierterNutzer != null) {
             this.userid = validierterNutzer.getUserid();
+            this.email = validierterNutzer.getEmail(); // optional übernehmen
             return true;
         }
         return false;
@@ -32,20 +34,22 @@ public class Nutzer {
         }
     }
 
-	public boolean resetPassword(String username, String newPassword) {
-        NutzerDAO dao = new NutzerDAO();
-        // Erst prüfen, ob der Nutzer existiert
-        if (dao.isUsernameTaken(username)) {
-            // Neues Passwort validieren (min. 6 Zeichen wie in validateCredentials)
-            if (newPassword != null && newPassword.trim().length() >= 6) {
-                return dao.updatePassword(username, newPassword);
-            }
-        }
-        return false;
-    }
+	public boolean resetPassword(String email, String newPassword) {
+	    NutzerDAO dao = new NutzerDAO();
+	    
+	    // Wir prüfen nun, ob die Email in der Datenbank existiert
+	    if (dao.isEmailTaken(email)) { // Du musst isEmailTaken in der DAO ergänzen (siehe unten)
+	        if (newPassword != null && newPassword.trim().length() >= 6) {
+	            return dao.updatePasswordByEmail(email, newPassword);
+	        }
+	    }
+	    return false;
+	}
 
 	public boolean validateCredentials() {
-		if (this.username == null || this.username.trim().length() < 3 || this.password == null || this.password.trim().length() < 6) {
+		if (this.username == null || this.username.trim().length() < 3 ||
+		    this.password == null || this.password.trim().length() < 6 ||
+		    this.email == null || !this.email.contains("@")) { // <-- einfache Email-Prüfung
 			return false;
 		}
 		return true;
@@ -73,5 +77,14 @@ public class Nutzer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	// ===== NEU =====
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

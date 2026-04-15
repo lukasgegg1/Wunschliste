@@ -13,7 +13,7 @@ public class AppInstallWishlistTables {
 	}
 
 	public void doSomething() throws SQLException {
-		//this.dropAllTables();
+		this.dropAllTables();
 		this.createAllTables();
 	}
 
@@ -43,6 +43,7 @@ public class AppInstallWishlistTables {
 		this.executeUpdateWithoutParms(
 			"CREATE TABLE Nutzer ("
 			+ "UserID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
+			+ "Email VARCHAR(100) NOT NULL UNIQUE,"
 			+ "Username VARCHAR(20) NOT NULL,"
 			+ "password VARCHAR(255) NOT NULL"
 			+ ")"
@@ -56,7 +57,7 @@ public class AppInstallWishlistTables {
 	        + "OwnerID INT NOT NULL,"
 	        + "Title VARCHAR(100) NOT NULL,"
 	        + "EventDate DATE,"
-	        + "ShareToken VARCHAR(50) UNIQUE NOT NULL," // Hier gehört der Token hin
+	        + "ShareToken VARCHAR(50) UNIQUE NOT NULL,"
 	        + "FOREIGN KEY (OwnerID) REFERENCES Nutzer(UserID) ON DELETE CASCADE"
 	        + ")"
 	    );
