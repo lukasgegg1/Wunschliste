@@ -1,1 +1,27 @@
-/bin/
+# Eclipse-spezifische Dateien und Ordner
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders/
+
+# Projekt-Konfigurationsdateien
+# (Nur ignorieren, wenn das Team sie nicht im Repo haben will)
+.project
+.classpath
+
+# Externe Build-Tools
+target/
+build/
+.gradle/
+.mvn/
+
+# Betriebssystem-spezifische Dateien
+.DS_Store
+Thumbs.db
