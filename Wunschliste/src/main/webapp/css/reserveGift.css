@@ -1,4 +1,4 @@
-/* --- Reserve Gift Styles --- */
+/* --- Reserve Gift Styles (Professional Version) --- */
 
 .reserve-container {
     max-width: 900px;
@@ -14,32 +14,45 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 3px solid var(--primary);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
+    padding-bottom: 1.2rem;
+    margin-bottom: 2.5rem;
+    gap: 20px;
+}
+
+.reserve-header h1 {
+    font-size: 1.8rem;
+    color: var(--dark);
+    margin: 0;
+    flex: 1;
 }
 
 .days-badge {
     background: #f1f2f6;
-    padding: 5px 15px;
+    padding: 6px 15px;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--text-muted);
+    white-space: nowrap;
 }
 
 .error-msg {
     background-color: #ffe6e6;
-    color: #ff4d4d;
+    color: #e74c3c;
     padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
+    border: 1px solid #ffcccc;
 }
 
-/* Tabellen Styling (wie im Mockup) */
+/* --- Tabellen Styling --- */
 .table-section {
     margin-bottom: 2.5rem;
     overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #eee;
 }
 
 .gift-table {
@@ -52,25 +65,52 @@
     color: var(--white);
     padding: 15px;
     text-align: center;
-    border: 1px solid #444; /* Etwas dunklere Ränder für den Kontrast */
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
 .gift-table td {
     padding: 18px 15px;
-    border: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     text-align: center;
+    vertical-align: middle;
+    font-size: 1.05rem;
+}
+
+/* Preisaufschlüsselung (Ersatz für Inline-Styles) */
+.price-cell {
+    text-align: left !important; /* Linksbündig sieht bei Aufzählungen besser aus */
+    line-height: 1.5;
+}
+
+.price-total {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.price-reserved {
+    color: #27ae60; /* Passendes Grün */
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.price-remaining {
+    color: #e74c3c; /* Passendes Rot */
     font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 4px;
 }
 
 .stars {
-    color: #f1c40f; /* Gold für die Sterne */
-    font-size: 1.3rem;
+    color: #f1c40f; 
+    font-size: 1.2rem;
     letter-spacing: 2px;
 }
 
-/* Formular & Checkbox Styling */
+/* --- Formular & Checkbox Styling --- */
 .reserve-form-section {
     padding-top: 1rem;
+    border-top: 1px solid #eee;
 }
 
 .checkbox-group {
@@ -80,15 +120,24 @@
 }
 
 .checkbox-container {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     cursor: pointer;
     gap: 10px;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.checkbox-container:hover {
+    background: #f1f2f6;
 }
 
 .checkbox-container input {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     accent-color: var(--primary);
     cursor: pointer;
 }
@@ -97,7 +146,8 @@
 .amount-group {
     background: #f9f9fb;
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 12px;
+    border: 1px solid #eee;
     margin-bottom: 2rem;
     max-width: 400px;
 }
@@ -107,11 +157,14 @@
     margin-bottom: 0.8rem;
     font-weight: 600;
     color: var(--dark);
+    font-size: 0.95rem;
 }
 
 .amount-input-wrapper {
     display: flex;
     align-items: center;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    border-radius: 8px;
 }
 
 .amount-input-wrapper input {
@@ -138,7 +191,7 @@
     color: var(--text-muted);
 }
 
-/* Buttons */
+/* --- Buttons --- */
 .button-group {
     display: flex;
     gap: 15px;
@@ -152,7 +205,7 @@
     border: 2px solid var(--dark);
     background: transparent;
     color: var(--dark);
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s;
@@ -161,6 +214,7 @@
 .btn-back:hover {
     background: var(--dark);
     color: var(--white);
+    transform: translateY(-1px);
 }
 
 .btn-confirm {
@@ -168,7 +222,7 @@
     border: none;
     background: var(--primary);
     color: var(--white);
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -181,38 +235,34 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
 }
-/* --- Shop-Link Button (Lila Style) --- */
 
 /* --- Shop-Link Button (Lila Style) --- */
-
-/* Wir sprechen den Link direkt in der Tabelle an, um absolute Priorität zu haben */
 .gift-table td .external-link {
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    padding: 10px 25px !important; /* Etwas breiter für den Look */
-    background-color: #7d5fff !important; /* Falls var(--primary) nicht greift, hier der Lila-Ton */
+    padding: 10px 22px !important; 
     background-color: var(--primary) !important; 
     color: #ffffff !important;
-    border-radius: 12px !important;
-    font-weight: 700 !important;
-    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
     text-decoration: none !important;
     border: none !important;
-    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.2);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(108, 92, 231, 0.15);
+    transition: all 0.2s ease;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .gift-table td .external-link:hover {
     background-color: var(--primary-hover) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(108, 92, 231, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(108, 92, 231, 0.25);
     text-decoration: none !important;
     color: #ffffff !important;
 }
 
-/* Verhindert, dass der Link jemals blau oder unterstrichen wird */
 .external-link:visited, 
 .external-link:active, 
 .external-link:focus {

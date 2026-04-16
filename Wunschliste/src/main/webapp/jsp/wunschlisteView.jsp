@@ -74,7 +74,6 @@
 
         <% if (istBesitzer) { %>
             <div class="owner-controls">
-                <%-- Share-Bereich für den Besitzer --%>
                 <div class="share-container">
                     <p class="share-label">Dein Zugangs-Code für Gäste:</p>
                     <div class="share-box">
@@ -94,7 +93,7 @@
                 <thead>
                     <tr>
                         <th>Titel</th>
-                        <th>Preis</th>
+                        <th>Preis & Status</th>
                         <th>Priorität</th>
                         <th>Link</th>
                         <th>Aktionen</th>
@@ -105,10 +104,31 @@
                         <tr><td colspan="5" class="empty-row">Diese Liste enthält noch keine Wünsche.</td></tr>
                     <% } else { 
                         for (Wunsch w : geschenke) { 
+                            // --- Berechnung für den Fortschrittsbalken ---
+                            double price = w.getPrice();
+                            double missing = w.getMissingAmount();
+                            if(missing < 0) missing = 0; // Sicherstellen, dass es nicht negativ wird
+                            
+                            double paid = price - missing;
+                            double percent = (price > 0) ? (paid / price) * 100 : 0;
+                            if(percent > 100) percent = 100;
                     %>
                         <tr>
                             <td><strong><%= w.getTitle() %></strong></td>
-                            <td><%= String.format("%.2f", w.getPrice()) %>€</td>
+                            
+                            <%-- Neue Spalte mit Preis und Fortschrittsbalken --%>
+                            <td>
+                                <div><strong><%= String.format("%.2f", price) %>€</strong></div>
+                                <div class="progress-wrapper">
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-fill" style="width: <%= percent %>%;"></div>
+                                    </div>
+                                    <div class="progress-text">
+                                        <%= String.format("%.2f", paid) %>€ von <%= String.format("%.2f", price) %>€ reserviert
+                                    </div>
+                                </div>
+                            </td>
+                            
                             <td class="stars">
                                 <% for (int j = 1; j <= 5; j++) { 
                                     if (j <= w.getPriority()) out.print("★");
@@ -139,11 +159,15 @@
                                                onclick="return confirm('Möchtest du deine Reservierung wirklich aufheben?');">
                                                Austragen
                                             </a>
-                                        <% } else if (w.getMissingAmount() <= 0) { %>
-                                            <%-- Jemand anderes hat es reserviert --%>
-                                            <span class="status-reserved">Bereits reserviert</span>
+                                        <% } else if (missing <= 0) { %>
+                                            <%-- Jemand anderes hat es komplett reserviert --%>
+                                            <span class="status-reserved">Voll reserviert</span>
+                                        <% } else if (paid > 0 && missing > 0) { %>
+                                            <%-- Es ist teilweise reserviert, aber noch etwas offen --%>
+                                            <span class="status-partially">Teilweise reserviert</span>
+                                            <a href="../appl/wunschListeAppl.jsp?action=goReserve&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-reserve">Rest reservieren</a>
                                         <% } else { %>
-                                            <%-- Geschenk ist noch frei --%>
+                                            <%-- Geschenk ist noch komplett frei --%>
                                             <a href="../appl/wunschListeAppl.jsp?action=goReserve&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-reserve">Reservieren</a>
                                         <% } %>
                                     </div>
