@@ -14,7 +14,7 @@
         return;
     }
 
-    // 2. Listen-ID aus URL laden
+    // 2. Listen-ID aus URL laden (Parameter heißt 'id')
     String listIdStr = request.getParameter("id");
     if (listIdStr == null) {
         response.sendRedirect("dashboardView.jsp");
@@ -39,7 +39,7 @@
     List<Wunsch> geschenke = wDao.getWuenscheByListe(listId);
     
     for (Wunsch w : geschenke) {
-        w.loadReservations(); 
+        w.loadReservations(); // Wichtig für Status und Austragen-Logik
     }
 
     // 6. Tage bis zum Event berechnen
@@ -72,33 +72,24 @@
             <span class="days-badge"><%= tageText %></span>
         </div>
 
-        <%-- OWNER CONTROLS: Jetzt korrekt verschachtelt für das Nebeneinander-Design --%>
-		<%
-		if (istBesitzer) {
-		%>
-		<div class="owner-controls">
+        <% if (istBesitzer) { %>
+            <div class="owner-controls">
+                <%-- Share-Bereich für den Besitzer --%>
+                <div class="share-container">
+                    <p class="share-label">Dein Zugangs-Code für Gäste:</p>
+                    <div class="share-box">
+                        <input type="text" id="shareInput" value="<%= aktuelleListe.getShareToken() %>" readonly>
+                        <button onclick="copyToClipboard()" class="btn-copy">Kopieren</button>
+                    </div>
+                </div>
 
-			<div class="share-container">
-				<p class="share-label">Liste mit Gästen teilen:</p>
-				<div class="share-box">
-					<input type="text" id="shareInput"
-						value="<%=aktuelleListe.getShareToken()%>"
-						readonly>
-					<button onclick="copyToClipboard()" class="btn-copy">Kopieren</button>
-				</div>
-			</div>
+                <div class="owner-actions">
+                    <a href="addWishesView.jsp?id=<%= listId %>" class="btn-add-wish">Neuen Wunsch hinzufügen</a>
+                </div>
+            </div>
+        <% } %>
 
-			<div class="owner-actions">
-				<a href="addWishesView.jsp?id=<%=listId%>" class="btn-add-wish">Neuen
-					Wunsch hinzufügen</a>
-			</div>
-
-		</div>
-		<%
-		}
-		%>
-
-		<section class="table-section">
+        <section class="table-section">
             <table class="list-table">
                 <thead>
                     <tr>
@@ -131,16 +122,31 @@
                             </td>
                             <td class="action-cell">
                                 <% if (istBesitzer) { %>
+                                    <%-- Besitzer-Ansicht: Bearbeiten/Löschen --%>
                                     <div class="owner-links">
                                         <a href="../appl/wunschListeAppl.jsp?action=editWunsch&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-edit">bearbeiten</a>
                                         <a href="../appl/wunschListeAppl.jsp?action=deleteWunsch&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-delete" onclick="return confirm('Möchtest du diesen Wunsch wirklich löschen?');">löschen</a>
                                     </div>
-                                <% } else { %>
-                                    <% if (w.getMissingAmount() <= 0) { %>
-                                        <span class="status-reserved">Bereits reserviert</span>
-                                    <% } else { %>
-                                        <a href="../appl/wunschListeAppl.jsp?action=goReserve&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-reserve">Reservieren</a>
-                                    <% } %>
+                                <% } else { 
+                                    // Gast-Ansicht: Reservieren oder Austragen
+                                    int userResId = w.getReservationIdByUser(aktuellerNutzer.getUserid());
+                                %>
+                                    <div class="guest-actions">
+                                        <% if (userResId != -1) { %>
+                                            <%-- Nutzer hat dieses Geschenk selbst reserviert --%>
+                                            <a href="../appl/reservierenAppl.jsp?action=cancel&resId=<%= userResId %>&listId=<%= listId %>" 
+                                               class="btn-discard" 
+                                               onclick="return confirm('Möchtest du deine Reservierung wirklich aufheben?');">
+                                               Austragen
+                                            </a>
+                                        <% } else if (w.getMissingAmount() <= 0) { %>
+                                            <%-- Jemand anderes hat es reserviert --%>
+                                            <span class="status-reserved">Bereits reserviert</span>
+                                        <% } else { %>
+                                            <%-- Geschenk ist noch frei --%>
+                                            <a href="../appl/wunschListeAppl.jsp?action=goReserve&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-reserve">Reservieren</a>
+                                        <% } %>
+                                    </div>
                                 <% } %>
                             </td>
                         </tr>
@@ -156,25 +162,17 @@
     <script>
     function copyToClipboard() {
         var copyText = document.getElementById("shareInput");
-        
-        // Text auswählen
         copyText.select();
-        copyText.setSelectionRange(0, 99999); // Für mobile Geräte
-
-        // Kopieren
+        copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.value).then(function() {
-            // Visuelles Feedback
             const btn = document.querySelector('.btn-copy');
             const originalText = btn.innerText;
             btn.innerText = "Kopiert!";
             btn.style.backgroundColor = "#27ae60";
-            
             setTimeout(() => {
                 btn.innerText = originalText;
                 btn.style.backgroundColor = "";
             }, 2000);
-        }).catch(function(err) {
-            console.error('Fehler beim Kopieren: ', err);
         });
     }
     </script>

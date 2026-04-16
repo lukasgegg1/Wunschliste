@@ -160,3 +160,35 @@
         padding-top: 1rem;
     }
 }
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 4rem 0 2rem 0;
+}
+
+.reservation-card {
+    border-left: 5px solid var(--primary); /* Lila Akzent links */
+    background: #fcfcfd;
+}
+
+.category-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.empty-info-text {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+}
+
+.price-tag {
+    font-size: 0.9rem;
+    color: var(--dark);
+    font-weight: 600;
+}

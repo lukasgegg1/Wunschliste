@@ -1,4 +1,4 @@
-/* --- Wunschliste View Styles (Optimiert) --- */
+/* --- Wunschliste View Styles (Professional Version) --- */
 
 .list-container {
     max-width: 1100px;
@@ -12,44 +12,39 @@
 .list-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline; /* Richtet Text an der Grundlinie aus */
+    align-items: baseline;
     border-bottom: 3px solid var(--primary);
     padding-bottom: 1.2rem;
     margin-bottom: 2.5rem;
-    gap: 20px; /* Sicherer Abstand zwischen Titel und Datum */
+    gap: 20px;
 }
 
 .list-header h1 {
     font-size: 1.8rem;
     color: var(--dark);
     margin: 0;
-    flex: 1; /* Nimmt verfügbaren Platz ein */
+    flex: 1;
 }
 
-/* Verkleinertes Datum-Badge */
 .days-badge {
     background: #f1f2f6;
     padding: 4px 12px;
     border-radius: 20px;
     font-weight: 600;
-    font-size: 0.8rem; /* Kleiner gemacht */
+    font-size: 0.8rem;
     color: var(--text-muted);
-    white-space: nowrap; /* Verhindert Zeilenumbruch */
+    white-space: nowrap;
     align-self: center;
 }
 
-/* --- NEU: Container für Button & Share-Link --- */
+/* --- Controls & Share (Oben) --- */
 .owner-controls {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end; /* Richtet Elemente unten bündig aus */
+    align-items: flex-end;
     margin-bottom: 2.5rem;
     gap: 30px;
-    flex-wrap: wrap; /* Wichtig für Mobile-Ansicht */
-}
-
-.owner-actions {
-    margin-bottom: 0; /* Margin entfernt, da Container das regelt */
+    flex-wrap: wrap;
 }
 
 .btn-add-wish {
@@ -69,7 +64,6 @@
     transform: translateY(-2px);
 }
 
-/* --- NEU: Share-Link Styling --- */
 .share-container {
     background: #f8f9fa;
     padding: 1.2rem;
@@ -101,7 +95,6 @@
     border-radius: 8px;
     font-size: 0.85rem;
     background: white;
-    color: var(--dark);
     font-family: monospace;
 }
 
@@ -113,15 +106,10 @@
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    font-size: 0.85rem;
-    transition: all 0.3s;
+    transition: 0.3s;
 }
 
-.btn-copy:hover {
-    background: #000;
-}
-
-/* Tabelle */
+/* --- Tabelle Basis --- */
 .table-section {
     overflow-x: auto;
     border-radius: 10px;
@@ -137,7 +125,6 @@
     background-color: var(--dark);
     color: var(--white);
     padding: 15px;
-    text-align: center;
     font-size: 0.9rem;
     text-transform: uppercase;
 }
@@ -146,29 +133,79 @@
     padding: 18px 15px;
     border-bottom: 1px solid #eee;
     text-align: center;
-    font-size: 1rem;
 }
 
-/* Letzte Zeile ohne Border */
-.list-table tr:last-child td {
-    border-bottom: none;
-}
+.stars { color: #f1c40f; font-size: 1.2rem; }
 
-.stars {
-    color: #f1c40f;
-    font-size: 1.2rem;
-}
+/* --- PROFESSIONELLE BUTTONS (Screenshot-Style) --- */
 
-.action-reserve {
-    background-color: var(--primary);
-    color: white !important;
-    padding: 8px 16px;
-    border-radius: 8px;
-    text-decoration: none;
+/* Basis für alle Buttons in der Tabelle */
+.action-reserve, .btn-discard, .external-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    border-radius: 12px; /* Screenshot-Rundung */
+    font-weight: 600;
     font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
-.action-reserve:hover {
+/* Lila Buttons: Reservieren & Ansehen */
+.action-reserve, .external-link {
+    background-color: var(--primary); /* Dein Lila-Ton */
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(108, 92, 231, 0.15);
+}
+
+.action-reserve:hover, .external-link:hover {
     background-color: var(--primary-hover);
-    text-decoration: none !important;
+    transform: translateY(-1px);
+}
+
+/* Roter Button: Austragen */
+.btn-discard {
+    background-color: #e74c3c;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.15);
+}
+
+.btn-discard:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* --- Status & Links --- */
+.guest-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-reserved {
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.owner-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.action-edit { color: var(--primary); font-weight: 600; text-decoration: none; }
+.action-delete { color: #e74c3c; font-weight: 600; text-decoration: none; }
+
+.action-edit:hover, .action-delete:hover { text-decoration: underline; }
+
+.link-cell {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

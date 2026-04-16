@@ -131,4 +131,36 @@ public class WunschDAO {
             return false;
         }
     }
+    
+    public List<Wunsch> getReservedWishesByUser(int userId) {
+        List<Wunsch> liste = new ArrayList<>();
+        // Wir joinen die Wunschliste-Tabelle, um an den Titel der Liste zu kommen
+        String sql = "SELECT w.*, wl.title AS listenTitel FROM Wunsch w " +
+                     "JOIN Reservierungen r ON w.giftId = r.giftId " +
+                     "JOIN Wunschliste wl ON w.listId = wl.listId " +
+                     "WHERE r.guestId = ?";
+                     
+        try (Connection conn = new MySQLAccess().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                Wunsch w = new Wunsch();
+                w.setGiftId(rs.getInt("giftId"));
+                w.setTitle(rs.getString("title"));
+                w.setPrice(rs.getDouble("price"));
+                w.setListId(rs.getInt("listId"));
+                // Wir "missbrauchen" ein Feld oder nutzen ein temporäres Attribut für den Listennamen
+                // Falls du kein Feld dafür hast, nenne es einfach im Titel mit:
+                w.setTitle(rs.getString("title") + " (aus: " + rs.getString("listenTitel") + ")");
+                
+                liste.add(w);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return liste;
+    }
 }

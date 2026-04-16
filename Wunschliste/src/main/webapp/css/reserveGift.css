@@ -181,3 +181,46 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
 }
+/* --- Shop-Link Button (Lila Style) --- */
+
+/* --- Shop-Link Button (Lila Style) --- */
+
+/* Wir sprechen den Link direkt in der Tabelle an, um absolute Priorität zu haben */
+.gift-table td .external-link {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 25px !important; /* Etwas breiter für den Look */
+    background-color: #7d5fff !important; /* Falls var(--primary) nicht greift, hier der Lila-Ton */
+    background-color: var(--primary) !important; 
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.gift-table td .external-link:hover {
+    background-color: var(--primary-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(108, 92, 231, 0.3);
+    text-decoration: none !important;
+    color: #ffffff !important;
+}
+
+/* Verhindert, dass der Link jemals blau oder unterstrichen wird */
+.external-link:visited, 
+.external-link:active, 
+.external-link:focus {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+.link-cell {
+    text-align: center;
+    vertical-align: middle;
+}

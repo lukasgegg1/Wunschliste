@@ -92,12 +92,12 @@
                             <% for(int i=0; i < aktuellesGeschenk.getPriority(); i++) { out.print("★"); } %>
                         </td>
                         <td class="link-cell">
-                            <% if (aktuellesGeschenk.getLink() != null && !aktuellesGeschenk.getLink().isEmpty()) { %>
-                                <a href="<%= aktuellesGeschenk.getLink() %>" target="_blank">Zum Shop</a>
-                            <% } else { %>
-                                -
-                            <% } %>
-                        </td>
+					    <% if (aktuellesGeschenk.getLink() != null && !aktuellesGeschenk.getLink().isEmpty()) { %>
+					        <a href="<%= aktuellesGeschenk.getLink() %>" target="_blank" class="external-link">Ansehen</a>
+					    <% } else { %>
+					        <span style="color: var(--text-muted); font-size: 0.9rem;">-</span>
+					    <% } %>
+					</td>
                     </tr>
                 </tbody>
             </table>
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="button-group">
-                    <a href="listDetail.jsp?id=<%= listId %>" class="btn-back">zurück</a>
+                    <a href="wunschlisteView.jsp?id=<%= listId %>" class="btn-back">zurück</a>
                     <button type="submit" class="btn-confirm">Bestätigen</button>
                 </div>
             </form>

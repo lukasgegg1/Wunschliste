@@ -15,6 +15,7 @@ public class Wunsch {
 	private String link;
 	private boolean isGroupGift;
 	private List<Reservierungen> reservierungenListe = new ArrayList<>();
+	private int listId;
 
 	public Wunsch() {
 
@@ -68,6 +69,16 @@ public class Wunsch {
 			ReservierungDAO dao = new ReservierungDAO();
 			this.reservierungenListe = dao.getReservationsByGift(this.giftId);
 		}
+	}
+	
+	// In Wunsch.java hinzufügen
+	public int getReservationIdByUser(int userId) {
+	    for (Reservierungen res : reservierungenListe) {
+	        if (res.getGuestId() == userId) {
+	            return res.getReservationId();
+	        }
+	    }
+	    return -1;
 	}
 
 	public int getGiftId() {
@@ -124,5 +135,12 @@ public class Wunsch {
 
 	public void setReservierungenListe(List<Reservierungen> reservierungenListe) {
 		this.reservierungenListe = reservierungenListe;
+	}
+	public int getListId() {
+	    return listId;
+	}
+
+	public void setListId(int listId) {
+	    this.listId = listId;
 	}
 }
