@@ -6,20 +6,22 @@
     String userEingabe = request.getParameter("username");
     String passEingabe = request.getParameter("password");
 
-
-    Nutzer nutzer = new Nutzer();
-    nutzer.setUsername(userEingabe);
-    nutzer.setPassword(passEingabe);
+    // Sicherheits-Check: Falls die Parameter null sind (direkter Aufruf der Seite)
+    if (userEingabe == null || passEingabe == null) {
+        response.sendRedirect("../jsp/loginView.jsp");
+        return;
+    }
 
     NutzerDAO dao = new NutzerDAO();
-
+    // Das DAO übernimmt die Prüfung gegen die DB
     Nutzer validierterNutzer = dao.loginUser(userEingabe, passEingabe);
 
-    if (nutzer.validateCredentials() && validierterNutzer != null) {
+    if (validierterNutzer != null) {
+        // LOGIN ERFOLGREICH
         session.setAttribute("eingeloggterNutzer", validierterNutzer);
         response.sendRedirect("../jsp/dashboardView.jsp");
-        
     } else {
+        // LOGIN FEHLGESCHLAGEN
         response.sendRedirect("../jsp/loginView.jsp?error=1");
     }
 %>
