@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Passwort vergessen - WishList Pro</title>
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/passwortVergessen.css">
+    <link rel="stylesheet" href="../css/passwortVergessen.css?v=2">
 </head>
 <body>
 
@@ -16,15 +16,15 @@
             <div class="forgot-header">
                 <div class="icon-circle">🔑</div>
                 <h1>Passwort zurücksetzen</h1>
-                <p class="subtitle">Gib deinen Namen und dein neues Passwort ein.</p>
+                <p class="subtitle">Gib deine E-Mail und dein neues Passwort ein.</p>
             </div>
 
-            <%-- Anzeige von Fehlermeldungen --%>
+            <%-- Anzeige von Fehlermeldungen (Inline-Styles entfernt, nutzt jetzt das CSS) --%>
             <%
                 String error = request.getParameter("error");
                 if (error != null) {
             %>
-                <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; text-align: center; font-weight: bold;">
+                <div class="error-message">
                     <%
                         if ("userNotFoundOrInvalid".equals(error)) out.print("Benutzer nicht gefunden oder Passwort zu kurz.");
                         else if ("passwordMismatch".equals(error)) out.print("Die Passwörter stimmen nicht überein.");
@@ -37,7 +37,7 @@
                 
                 <div class="input-group">
                     <label for="email">E-Mail</label>
-                    <input type="text" id="email" name="email" placeholder="Max-Musterman@gmail.com" required>
+                    <input type="email" id="email" name="email" placeholder="max.mustermann@gmail.com" required>
                 </div>
 
                 <div class="input-group">

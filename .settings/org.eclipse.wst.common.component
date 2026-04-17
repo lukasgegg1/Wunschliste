@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
     <wb-module deploy-name="Wunschliste">
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Wunschliste/src/main/java"/>
+                
         <wb-resource deploy-path="/" source-path="/Wunschliste/src/main/webapp"/>
-        <dependent-module archiveName="mysql-connector-j-9.3.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Lukas/Documents/Eclipse/eclipse/mysql-connector-j-9.3.0.jar">
+        <dependent-module archiveName="mysql-connector-j-9.3.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/lukas/Desktop/eclipse/mysql-connector-j-9.3.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+                
         <property name="context-root" value="Wunschliste"/>
+                
         <property name="java-output-path" value="/Wunschliste/bin"/>
+            
     </wb-module>
+    
 </project-modules>
