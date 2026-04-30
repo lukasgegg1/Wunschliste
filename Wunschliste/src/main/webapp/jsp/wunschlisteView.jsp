@@ -14,7 +14,7 @@
         return;
     }
 
-    // 2. Listen-ID aus URL laden (Parameter heißt 'id')
+    // 2. Listen-ID aus URL laden
     String listIdStr = request.getParameter("id");
     if (listIdStr == null) {
         response.sendRedirect("dashboardView.jsp");
@@ -31,26 +31,29 @@
         return;
     }
 
-    // 4. Rollenprüfung: Besitzer oder Gast?
+    // 4. Rollenprüfung
     boolean istBesitzer = aktuelleListe.isOwner(aktuellerNutzer);
 
     // 5. Wünsche laden
     WunschDAO wDao = new WunschDAO();
     List<Wunsch> geschenke = wDao.getWuenscheByListe(listId);
-    
     for (Wunsch w : geschenke) {
-        w.loadReservations(); // Wichtig für Status und Austragen-Logik
+        w.loadReservations();
     }
 
-    // 6. Tage bis zum Event berechnen
+    // 6. Ablauf-Logik berechnen
     String tageText = "Kein Datum gesetzt";
+    boolean istAbgelaufen = false; 
+
     if (aktuelleListe.getEventDate() != null) {
         long diff = aktuelleListe.getEventDate().getTime() - System.currentTimeMillis();
         long days = diff / (1000 * 60 * 60 * 24);
-        if (days >= 0) {
-            tageText = "Noch " + days + " Tage offen";
-        } else {
+        
+        if (diff < 0) {
             tageText = "Event ist vergangen";
+            istAbgelaufen = true;
+        } else {
+            tageText = "Noch " + days + " Tage offen";
         }
     }
 %>
@@ -62,6 +65,22 @@
     <title><%= aktuelleListe.getTitle() %> - WishList Pro</title>
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/wunschliste.css">
+    <style>
+        .status-expired {
+            color: #95a5a6;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+        .error-banner {
+            background-color: #ffcccc;
+            color: #cc0000;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <%@ include file="navbar.jspf" %>
@@ -71,6 +90,11 @@
             <h1>Wunschliste: <%= aktuelleListe.getTitle() %></h1>
             <span class="days-badge"><%= tageText %></span>
         </div>
+
+        <%-- Fehlermeldung bei Manipulationsversuch --%>
+        <% if ("expired".equals(request.getParameter("error"))) { %>
+            <div class="error-banner">Aktion nicht möglich: Die Liste ist bereits abgelaufen.</div>
+        <% } %>
 
         <% if (istBesitzer) { %>
             <div class="owner-controls">
@@ -83,7 +107,11 @@
                 </div>
 
                 <div class="owner-actions">
-                    <a href="addWishesView.jsp?id=<%= listId %>" class="btn-add-wish">Neuen Wunsch hinzufügen</a>
+                    <% if (!istAbgelaufen) { %>
+                        <a href="../appl/wunschListeAppl.jsp?action=addWunsch&listId=<%= listId %>" class="btn-add-wish">Neuen Wunsch hinzufügen</a>
+                    <% } else { %>
+                        <span class="status-expired">Liste archiviert (Event vorbei)</span>
+                    <% } %>
                 </div>
             </div>
         <% } %>
@@ -104,10 +132,9 @@
                         <tr><td colspan="5" class="empty-row">Diese Liste enthält noch keine Wünsche.</td></tr>
                     <% } else { 
                         for (Wunsch w : geschenke) { 
-                            // --- Berechnung für den Fortschrittsbalken ---
                             double price = w.getPrice();
                             double missing = w.getMissingAmount();
-                            if(missing < 0) missing = 0; // Sicherstellen, dass es nicht negativ wird
+                            if(missing < 0) missing = 0;
                             
                             double paid = price - missing;
                             double percent = (price > 0) ? (paid / price) * 100 : 0;
@@ -115,8 +142,6 @@
                     %>
                         <tr>
                             <td><strong><%= w.getTitle() %></strong></td>
-                            
-                            <%-- Neue Spalte mit Preis und Fortschrittsbalken --%>
                             <td>
                                 <div><strong><%= String.format("%.2f", price) %>€</strong></div>
                                 <div class="progress-wrapper">
@@ -128,7 +153,6 @@
                                     </div>
                                 </div>
                             </td>
-                            
                             <td class="stars">
                                 <% for (int j = 1; j <= 5; j++) { 
                                     if (j <= w.getPriority()) out.print("★");
@@ -142,33 +166,32 @@
                             </td>
                             <td class="action-cell">
                                 <% if (istBesitzer) { %>
-                                    <%-- Besitzer-Ansicht: Bearbeiten/Löschen --%>
                                     <div class="owner-links">
-                                        <a href="../appl/wunschListeAppl.jsp?action=editWunsch&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-edit">bearbeiten</a>
-                                        <a href="../appl/wunschListeAppl.jsp?action=deleteWunsch&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-delete" onclick="return confirm('Möchtest du diesen Wunsch wirklich löschen?');">löschen</a>
+                                        <% if (!istAbgelaufen) { %>
+                                            <a href="../appl/wunschListeAppl.jsp?action=editWunsch&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-edit">bearbeiten</a>
+                                            <a href="../appl/wunschListeAppl.jsp?action=deleteWunsch&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-delete" onclick="return confirm('Möchtest du diesen Wunsch wirklich löschen?');">löschen</a>
+                                        <% } else { %>
+                                            <span class="status-expired">Gesperrt</span>
+                                        <% } %>
                                     </div>
                                 <% } else { 
-                                    // Gast-Ansicht: Reservieren oder Austragen
                                     int userResId = w.getReservationIdByUser(aktuellerNutzer.getUserid());
                                 %>
                                     <div class="guest-actions">
                                         <% if (userResId != -1) { %>
-                                            <%-- Nutzer hat dieses Geschenk selbst reserviert --%>
-                                            <a href="../appl/reservierenAppl.jsp?action=cancel&resId=<%= userResId %>&listId=<%= listId %>" 
-                                               class="btn-discard" 
-                                               onclick="return confirm('Möchtest du deine Reservierung wirklich aufheben?');">
-                                               Austragen
-                                            </a>
+                                            <% if (!istAbgelaufen) { %>
+                                                <a href="../appl/reservierenAppl.jsp?action=cancel&resId=<%= userResId %>&listId=<%= listId %>" class="btn-discard" onclick="return confirm('Reservierung aufheben?');">Austragen</a>
+                                            <% } else { %>
+                                                <span class="status-reserved">Reserviert (Event vorbei)</span>
+                                            <% } %>
                                         <% } else if (missing <= 0) { %>
-                                            <%-- Jemand anderes hat es komplett reserviert --%>
                                             <span class="status-reserved">Voll reserviert</span>
-                                        <% } else if (paid > 0 && missing > 0) { %>
-                                            <%-- Es ist teilweise reserviert, aber noch etwas offen --%>
-                                            <span class="status-partially">Teilweise reserviert</span>
-                                            <a href="../appl/wunschListeAppl.jsp?action=goReserve&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-reserve">Rest reservieren</a>
+                                        <% } else if (istAbgelaufen) { %>
+                                            <span class="status-expired">Abgelaufen</span>
                                         <% } else { %>
-                                            <%-- Geschenk ist noch komplett frei --%>
-                                            <a href="../appl/wunschListeAppl.jsp?action=goReserve&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-reserve">Reservieren</a>
+                                            <a href="../appl/wunschListeAppl.jsp?action=goReserve&listId=<%= listId %>&giftId=<%= w.getGiftId() %>" class="action-reserve">
+                                                <%= (paid > 0) ? "Rest reservieren" : "Reservieren" %>
+                                            </a>
                                         <% } %>
                                     </div>
                                 <% } %>
@@ -180,25 +203,6 @@
             </table>
         </section>
     </main>
-
     <%@ include file="footer.jspf" %>
-
-    <script>
-    function copyToClipboard() {
-        var copyText = document.getElementById("shareInput");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(copyText.value).then(function() {
-            const btn = document.querySelector('.btn-copy');
-            const originalText = btn.innerText;
-            btn.innerText = "Kopiert!";
-            btn.style.backgroundColor = "#27ae60";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.backgroundColor = "";
-            }, 2000);
-        });
-    }
-    </script>
 </body>
 </html>

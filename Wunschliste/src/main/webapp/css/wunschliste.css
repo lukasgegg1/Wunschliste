@@ -221,7 +221,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 /* --- Fortschrittsbalken (Teilreservierungen) --- */
 .progress-wrapper {
     margin-top: 8px;
@@ -251,4 +250,50 @@
     white-space: nowrap;
     text-align: center;
     font-weight: 600;
+}
+.status-expired {
+    color: #95a5a6;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 8px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* Optional: Graue die ganze Zeile leicht aus, wenn abgelaufen */
+.list-table tr.expired-row {
+    opacity: 0.6;
+    background-color: #f9f9f9;
+}
+
+.status-expired {
+    color: #95a5a6;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 8px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* Optional: Graue die ganze Zeile leicht aus, wenn abgelaufen */
+.list-table tr.expired-row {
+    opacity: 0.6;
+    background-color: #f9f9f9;
+}
+.status-expired {
+    color: #95a5a6;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 8px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* Optional: Graue die ganze Zeile leicht aus, wenn abgelaufen */
+.list-table tr.expired-row {
+    opacity: 0.6;
+    background-color: #f9f9f9;
 }

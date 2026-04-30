@@ -24,40 +24,61 @@
 
     int listId = Integer.parseInt(listIdStr);
     
-    // Prüfen, wer die Aktion ausführt
+    // Daten laden
     WunschlisteDAO lDAO = new WunschlisteDAO();
     Wunschliste aktuelleListe = lDAO.getWunschlisteById(listId);
+    
+    if (aktuelleListe == null) {
+        response.sendRedirect("../jsp/dashboardView.jsp");
+        return;
+    }
+
+    // --- ABLAUF-LOGIK CHECK ---
+    boolean istAbgelaufen = false;
+    if (aktuelleListe.getEventDate() != null) {
+        istAbgelaufen = aktuelleListe.getEventDate().getTime() < System.currentTimeMillis();
+    }
+
     boolean istBesitzer = aktuelleListe.isOwner(aktuellerNutzer);
 
     // --- LOGIK-WEICHE ---
     if (istBesitzer) {
-        // WEG A: BESITZER-LOGIK
         WunschDAO wDAO = new WunschDAO();
         
+        // KRITISCHE SPERRE: Wenn abgelaufen, keine schreibenden Aktionen erlauben
+        if (istAbgelaufen && ("deleteWunsch".equals(action) || "editWunsch".equals(action) || "addWunsch".equals(action))) {
+            response.sendRedirect("../jsp/wunschlisteView.jsp?id=" + listId + "&error=expired");
+            return;
+        }
+
         if ("deleteWunsch".equals(action) && giftIdStr != null) {
             wDAO.deleteWunsch(Integer.parseInt(giftIdStr));
             response.sendRedirect("../jsp/wunschlisteView.jsp?id=" + listId);
         } 
         else if ("editWunsch".equals(action) && giftIdStr != null) {
-            // Weiterleitung zur Bearbeiten-Seite
             response.sendRedirect("../jsp/editGiftView.jsp?giftId=" + giftIdStr + "&listId=" + listId);
-        } else {
+        } 
+        else if ("addWunsch".equals(action)) {
+            response.sendRedirect("../jsp/addWishesView.jsp?id=" + listId);
+        }
+        else {
             response.sendRedirect("../jsp/wunschlisteView.jsp?id=" + listId);
         }
     } 
     else {
-        // WEG B: GAST-LOGIK
+        // GAST-LOGIK
         if ("goReserve".equals(action)) {
-    String gId = request.getParameter("giftId");
-    String lId = request.getParameter("listId");
+            // Sperre für Reservierungen
+            if (istAbgelaufen) {
+                response.sendRedirect("../jsp/wunschlisteView.jsp?id=" + listId + "&error=expired");
+                return;
+            }
 
-    // Falls die Parameter da sind, hänge sie an den Redirect an
-    if (gId != null && lId != null) {
-        response.sendRedirect("../jsp/reserveGiftView.jsp?giftId=" + gId + "&listId=" + lId);
-    } else {
-        response.sendRedirect("../jsp/dashboardView.jsp");
-    }
-    return; // Wichtig: Damit die restliche Appl nicht weiter ausgeführt wird
-}
+            if (giftIdStr != null) {
+                response.sendRedirect("../jsp/reserveGiftView.jsp?giftId=" + giftIdStr + "&listId=" + listId);
+            } else {
+                response.sendRedirect("../jsp/dashboardView.jsp");
+            }
+        }
     }
 %>

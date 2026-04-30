@@ -1,3 +1,5 @@
+<%@page import="beans.Wunschliste"%>
+<%@page import="JDBC.WunschlisteDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="beans.Nutzer" %>
 <%@ page import="beans.Reservierungen" %>
@@ -13,6 +15,22 @@
     String action = request.getParameter("action");
     String listIdStr = request.getParameter("listId");
     String giftIdStr = request.getParameter("giftId");
+    
+    int listId = Integer.parseInt(listIdStr); 
+    int giftId = Integer.parseInt(giftIdStr);
+
+    WunschlisteDAO lDao = new WunschlisteDAO();
+    Wunschliste liste = lDao.getWunschlisteById(listId);
+
+    // LOGIK-SPERRE: Finaler Check vor dem Datenbank-Insert
+    if (liste != null && liste.getEventDate() != null) {
+        if (liste.getEventDate().getTime() < System.currentTimeMillis()) {
+            // Abbruch: Jemand hat versucht, ein abgelaufenes Event zu manipulieren
+            response.sendRedirect("../jsp/wunschlisteView.jsp?id=" + listId + "&error=expired");
+            return;
+        }
+    }
+
 
     ReservierungDAO resDao = new ReservierungDAO();
 
@@ -31,7 +49,7 @@
 
     if (giftIdStr != null && listIdStr != null) {
         try {
-            int giftId = Integer.parseInt(giftIdStr);
+          
             String isPartial = request.getParameter("isPartial");
             String amountStr = request.getParameter("amount");
             String fullPriceStr = request.getParameter("fullPrice");

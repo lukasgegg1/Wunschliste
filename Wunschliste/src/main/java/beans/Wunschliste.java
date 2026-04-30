@@ -16,6 +16,12 @@ public class Wunschliste {
 	public Wunschliste() {
 
 	}
+	
+	public boolean isExpired() {
+	    if (this.eventDate == null) return false;
+	    // Prüft, ob das aktuelle Datum nach dem Event-Datum liegt
+	    return new java.util.Date().after(this.eventDate);
+	}
 
 	public boolean isOwner(Nutzer u) {
 		if (u == null) {
