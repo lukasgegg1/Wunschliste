@@ -160,10 +160,19 @@
                                 } %>
                             </td>
                             <td class="link-cell">
-                                <% if (w.getLink() != null && !w.getLink().isEmpty()) { %>
-                                    <a href="<%= w.getLink() %>" target="_blank" class="external-link">Ansehen</a>
-                                <% } else { %> - <% } %>
-                            </td>
+					    <% 
+					        if (w.getLink() != null && !w.getLink().isEmpty()) { 
+					            String finalUrl = w.getLink();
+					            // Prüfen, ob der Link mit http startet, falls nicht, https davorhängen
+					            if (!finalUrl.toLowerCase().startsWith("http://") && !finalUrl.toLowerCase().startsWith("https://")) {
+					                finalUrl = "https://" + finalUrl;
+					            }
+					    %>
+					        <a href="<%= finalUrl %>" target="_blank" class="external-link">Ansehen</a>
+					    <% } else { %> 
+					        - 
+					    <% } %>
+					</td>
                             <td class="action-cell">
                                 <% if (istBesitzer) { %>
                                     <div class="owner-links">
