@@ -2,6 +2,7 @@
 <%
     Nutzer navUser = (Nutzer) session.getAttribute("eingeloggterNutzer");
 %>
+
 <header>
     <nav class="navbar">
         <div class="logo">
@@ -9,12 +10,12 @@
         </div>
         
         <ul class="nav-links">
-            <%-- Startseite Link --%>
+            <%-- Dieser Link erscheint auf allen Unterseiten (außer Homepage) --%>
             <li class="nav-item-back-home">
                 <a href="homepage.jsp" class="nav-link-dezent">Startseite</a>
             </li>
             
-            <%-- "So funktioniert's" (Nur Homepage, dezent) --%>
+            <%-- Dieser Link erscheint NUR auf der Startseite (gesteuert durch CSS #home-page) --%>
             <li class="nav-item-homepage">
                 <a href="homepage.jsp#how-it-works" class="nav-link-dezent">So funktioniert's</a>
             </li>
@@ -24,13 +25,37 @@
                     <a href="loginView.jsp" class="login-btn">Login</a>
                 </li>
             <% } else { %>
-                <li class="nav-item-profile">
-                    <a href="dashboardView.jsp" class="nav-link-dezent">Mein Profil</a>
-                </li>
-                <li class="nav-item-logout">
-                    <a href="../appl/logoutAppl.jsp" class="nav-link-dezent logout-special">Abmelden</a>
+                <li class="nav-item dropdown">
+                    <div class="user-pill" id="userMenuBtn">
+                        <span class="user-name">Hallo, <%= navUser.getUsername() %></span>
+                        <span class="arrow">&#9660;</span>
+                    </div>
+                    <div class="dropdown-content" id="userDropdown">
+                        <a href="dashboardView.jsp">Mein Profil</a>
+                        <a href="../appl/logoutAppl.jsp" class="logout-link">Abmelden</a>
+                    </div>
                 </li>
             <% } %>
         </ul>
     </nav>
 </header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('userMenuBtn');
+    const menu = document.getElementById('userDropdown');
+
+    if (btn && menu) {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menu.classList.toggle('show');
+        });
+
+        window.addEventListener('click', function(e) {
+            if (!btn.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
+    }
+});
+</script>

@@ -163,4 +163,65 @@ public class WunschDAO {
         }
         return liste;
     }
+    
+    public Wunsch getWunschById(int giftId) {
+        Wunsch w = null;
+        // Achtung: Ich benutze hier "Wunsch" als Tabellenname, da dein INSERT das auch tut
+        String sql = "SELECT * FROM Wunsch WHERE giftId = ?";
+
+        try {
+            MySQLAccess access = new MySQLAccess();
+            Connection conn = access.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, giftId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                w = new Wunsch();
+                w.setGiftId(rs.getInt("giftId"));
+                w.setTitle(rs.getString("title"));
+                w.setPrice(rs.getDouble("price"));
+                w.setPriority(rs.getInt("priority"));
+                w.setLink(rs.getString("link"));
+                // falls vorhanden: w.setGroupGift(rs.getBoolean("isGroupGift"));
+            }
+
+            rs.close();
+            pstmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.err.println("Fehler beim Laden des Wunsches:");
+            e.printStackTrace();
+        }
+        return w;
+    }
+    
+    public void updateWunsch(int id, String titel, double preis, int prio, String link) {
+        String sql = "UPDATE Wunsch SET title = ?, price = ?, priority = ?, link = ? WHERE giftId = ?";
+
+        try {
+            MySQLAccess access = new MySQLAccess();
+            Connection conn = access.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, titel);
+            pstmt.setDouble(2, preis);
+            pstmt.setInt(3, prio);
+            pstmt.setString(4, link);
+            pstmt.setInt(5, id); 
+
+            pstmt.executeUpdate(); // Führt das Update aus
+
+            pstmt.close();
+            conn.close();
+            
+            System.out.println("Update erfolgreich für ID: " + id);
+
+        } catch (SQLException e) {
+            System.err.println("Fehler beim Update des Wunsches:");
+            e.printStackTrace();
+        }
+    }
 }
