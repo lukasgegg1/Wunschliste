@@ -21,6 +21,11 @@ public class Wunsch {
 
 	}
 
+	/***
+	 * Aktueller wert der Reservierungen.
+	 * Bei mehreren Beteiligungen wird addiert.
+	 * @return Betrag der Reservierungen
+	 */
 	public double getCurrentAmount() {
 		double total = 0.0;
 		for (Reservierungen res : reservierungenListe) {
@@ -29,11 +34,22 @@ public class Wunsch {
 		return total;
 	}
 
+	/***
+	 * Methode zur Prüfung, ob der Reservierungsbetrag.
+	 * erreicht ist.
+	 * @return fehlender Betrag
+	 */
 	public double getMissingAmount() {
 		double missing = this.price - this.getCurrentAmount();
 		return Math.max(0, missing);
 	}
 
+	/**
+	 * Prüft, ob es der passende Besitzer der Reservierung ist.
+	 * und ob der Reservierungsbetrag erreicht wurde.
+	 * @param isOwner
+	 * @return "Reserviert", wenn erreicht
+	 */
 	public String getStatus(boolean isOwner) {
 		if (isOwner) {
 			return "Geheim";
@@ -48,12 +64,22 @@ public class Wunsch {
 		}
 	}
 
+	/***
+	 * Fügt die Reservierung zur Reservierungsliste hinzu.
+	 * @param r = reservierung
+	 */
 	public void addReservation(Reservierungen r) {
 		if (r != null) {
 			this.reservierungenListe.add(r);
 		}
 	}
 
+	/**
+	 * Update für die jeweilige Priorität der Reservierungen.
+	 * Priorität muss mindestens zwischen 1-3 liegen
+	 * für update der Priorität => 1, 2 , 3
+	 * @param newPriority
+	 */
 	public void updatePriority(int newPriority) {
 		if (newPriority >= 1 && newPriority <= 3) {
 			this.priority = newPriority;
@@ -64,14 +90,22 @@ public class Wunsch {
 		}
 	}
 
+	/***
+	 * Laden sowie anzeigen der Reservierungsliste,
+	 * wenn die giftId >0 ist
+	 */
 	public void loadReservations() {
 		if (this.giftId > 0) {
 			ReservierungDAO dao = new ReservierungDAO();
 			this.reservierungenListe = dao.getReservationsByGift(this.giftId);
 		}
 	}
-	
-	// In Wunsch.java hinzufügen
+
+	/**
+	 * Reservierungs Id von Nutzer erhalten
+	 * @param userId
+	 * @return reservierungsId
+	 */
 	public int getReservationIdByUser(int userId) {
 	    for (Reservierungen res : reservierungenListe) {
 	        if (res.getGuestId() == userId) {
