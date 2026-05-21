@@ -31,6 +31,10 @@ public class Nutzer {
         return false;
     }
 
+	/**
+	 * Methode für das registrieren des Nutzers.
+	 * Bei erfolg, Ausgabe das Nutzer registriert wurde.
+	 */
 	public void register() {
         NutzerDAO dao = new NutzerDAO();
         boolean erfolg = dao.registerUser(this);
@@ -40,6 +44,14 @@ public class Nutzer {
         }
     }
 
+	/**
+	 * Für das resetten des Passworts des Nutzers.
+	 * Folgende Parameter für Änderung
+	 * @param email
+	 * @param newPassword
+	 * Wenn email existiert:
+	 * @return passwort resettet und updatet
+	 */
 	public boolean resetPassword(String email, String newPassword) {
 	    NutzerDAO dao = new NutzerDAO();
 	    
@@ -52,6 +64,12 @@ public class Nutzer {
 	    return false;
 	}
 
+
+	/**
+	 * Validierungs-Methode für die Anmeldeinformatioen
+	 * Username & Passwort werden geprüft
+	 * @return true, Validierung erfolgreich
+	 */
 	public boolean validateCredentials() {
 		if (this.username == null || this.username.trim().length() < 3 ||
 		    this.password == null || this.password.trim().length() < 6 ||
