@@ -5,6 +5,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 
+<%--
+    WishesAppl:
+    Login des Nutzers und dessen Session holen.
+    Liste von Wuenschen verfuegbar machen.
+    Abfrage ermoeglichen, um Wueschne zu adden, und zu entfernen  - temporär.
+    Wenn Wunsch passt, speichern und session schließen
+--%>
 <%
     // Sicherheit
     Nutzer aktuellerNutzer = (Nutzer) session.getAttribute("eingeloggterNutzer");

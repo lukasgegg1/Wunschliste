@@ -5,6 +5,15 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.UUID" %>
 
+
+<%--
+    Liste fuer Wuensche:
+    Login des Nutzers und dessen Session holen,  GUIID erstellen
+    Wir erzeugen einen zufälligen 8-stelligen String
+    Wunschliste mit Titel und Datum angeben
+--%>
+
+
 <%
     Nutzer aktuellerNutzer = (Nutzer) session.getAttribute("eingeloggterNutzer");
     if (aktuellerNutzer == null) {

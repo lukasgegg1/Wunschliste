@@ -2,6 +2,12 @@
 <%@ page import="beans.Nutzer" %>
 <%@ page import="JDBC.WunschlisteDAO" %>
 
+
+
+
+
+
+
 <%
     Nutzer aktuellerNutzer = (Nutzer) session.getAttribute("eingeloggterNutzer");
     if (aktuellerNutzer == null) {
