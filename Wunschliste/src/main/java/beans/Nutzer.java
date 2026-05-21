@@ -15,8 +15,8 @@ public class Nutzer {
 
 	/**
 	 * Prüft, ob Nutzer sich einloggen kann.
-	 * Validiert die login Daten - Username & Passwort
-	 * @return false = kein login
+	 * Validiert die login Daten - Username & Passwort.
+	 * Nutzer als DAO
 	 * @return true  = login
 	 */
 	public boolean login() {
