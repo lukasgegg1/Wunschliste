@@ -17,12 +17,20 @@ public class Reservierungen {
 
 	}
 
+	/***
+	 * Methode für die Reservierung eines Geschenks.
+	 * @return true, Reservierung war erfolgreich.
+	 */
 	public boolean confirm() {
 		ReservierungDAO dao = new ReservierungDAO();
 		return dao.addReservation(this);
 	}
 
 
+	/***
+	 * Methode, um die Reservierung aufzulößen.
+	 * reservationId wird auf passenden wert gesetzt.
+	 */
 	public void cancel() {
 		if (this.reservationId > 0) {
 			ReservierungDAO dao = new ReservierungDAO();
@@ -30,6 +38,11 @@ public class Reservierungen {
 		}
 	}
 
+	/***
+	 * Updaten des reservierten "Geldbetrags" - Menge.
+	 * Attribut reservedAmount wird für diese Instanz angepasst.
+	 * @param newAmount
+	 */
 	public void updateAmount(double newAmount) {
 		if (newAmount > 0) {
 			ReservierungDAO dao = new ReservierungDAO();
@@ -41,6 +54,10 @@ public class Reservierungen {
 		}
 	}
 
+	/***
+	 * Richtiges Datumsformat wird übergeben.
+	 * @return passendes Datumsformat
+	 */
 	public String getFormattedTimestamp() {
 		if (this.timestamp == null) {
 			return "Datum unbekannt";
