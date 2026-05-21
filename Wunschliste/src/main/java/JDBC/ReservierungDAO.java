@@ -10,6 +10,11 @@ import beans.Reservierungen;
 
 public class ReservierungDAO {
 
+    /***
+     * Eine Reservierung für den Wunsch festlegen.
+     * @param res
+     * @return true, wenn frei
+     */
     public boolean addReservation(Reservierungen res) {
         String sql = "INSERT INTO Reservierungen (giftId, guestId, reservedAmount, timestamp) VALUES (?, ?, ?, NOW())";
         try (Connection conn = new MySQLAccess().getConnection();
@@ -24,6 +29,12 @@ public class ReservierungDAO {
         }
     }
 
+    /***
+     * Gibt die Reservierungen anhand der giftId zurück.
+     * Stellt diese in FE dar.
+     * @param giftId
+     * @return List<Reservierungen>
+     */
     public List<Reservierungen> getReservationsByGift(int giftId) {
         List<Reservierungen> reservierungsListe = new ArrayList<>();
         String sql = "SELECT * FROM Reservierungen WHERE giftId = ?";
@@ -47,6 +58,11 @@ public class ReservierungDAO {
         return reservierungsListe;
     }
 
+    /***
+     * Methode zum entfernen der Reservierung, wenn vorhanden.
+     * @param reservationId
+     * @return true, wenn gelöscht
+     */
     public boolean deleteReservation(int reservationId) {
         String sql = "DELETE FROM Reservierungen WHERE reservationId = ?";
         try (Connection conn = new MySQLAccess().getConnection();
@@ -58,7 +74,13 @@ public class ReservierungDAO {
             return false;
         }
     }
-    
+
+    /***
+     * Aktualisierung des Reservierungs Gesamtbetrag
+     * @param reservationId
+     * @param newAmount
+     * @return
+     */
     public boolean updateReservationAmount(int reservationId, double newAmount) {
         String sql = "UPDATE Reservierungen SET reservedAmount = ? WHERE reservationId = ?";
         try (Connection conn = new MySQLAccess().getConnection();

@@ -11,7 +11,12 @@ import beans.Wunschliste;
 
 public class WunschlisteDAO {
 
-    // 1. NEU: Methode für die Gäste-Suche (ShareToken)
+    /***
+     * Methode für die Gäste-Suche (ShareToken)
+     * holt sich die Wunschliste anhand des shared Token der Gäste
+     * @param token
+     * @return
+     */
     public Wunschliste getWunschlisteByToken(String token) {
         String sql = "SELECT * FROM Wunschliste WHERE ShareToken = ?";
         Wunschliste liste = null;
@@ -31,7 +36,12 @@ public class WunschlisteDAO {
         return liste;
     }
 
-    // 2. Bestehende Methode: Liste hinzufügen
+    /***
+     * Methode: Liste hinzufügen
+     * Hinzufügen einer neuen Wunschliste für die Gäste
+     * @param liste
+     * @return
+     */
     public boolean addWunschliste(Wunschliste liste) {
         String sql = "INSERT INTO Wunschliste (Title, EventDate, OwnerID, ShareToken) VALUES (?, ?, ?, ?)";
 
@@ -54,7 +64,12 @@ public class WunschlisteDAO {
         }
     }
 
-    // 3. Bestehende Methode: Listen eines Nutzers (Dashboard)
+    /***
+     * Methode: Listen eines Nutzers (Dashboard)
+     * Zeigt Wunschliste des Besitzer an
+     * @param ownerId
+     * @return Liste<Wunschliste>
+     */
     public List<Wunschliste> getWunschlistenByOwner(int ownerId) {
         List<Wunschliste> listen = new ArrayList<>();
         // Spaltenname an Schema angepasst: OwnerID
@@ -75,6 +90,11 @@ public class WunschlisteDAO {
         return listen;
     }
 
+    /***
+     * Lade einzelne Listen anhand der listId
+     * @param listId
+     * @return Wunschliste
+     */
     // 4. Bestehende Methode: Einzelne Liste laden
     public Wunschliste getWunschlisteById(int listId) {
         // Spaltenname an Schema angepasst: ListID
@@ -96,7 +116,13 @@ public class WunschlisteDAO {
         return liste;
     }
 
-    // HILFSMETHODE: Um Redundanz zu vermeiden und Spaltennamen zentral zu verwalten
+
+    /***
+     * Methode, um Redundanz zu vermeiden und Spaltennamen zentral zu verwalten
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private Wunschliste mapResultSetToWunschliste(ResultSet rs) throws SQLException {
         Wunschliste w = new Wunschliste();
         w.setListId(rs.getInt("ListID"));
@@ -111,6 +137,11 @@ public class WunschlisteDAO {
         return w;
     }
 
+    /***
+     * Entfernen der Wunschliste anhand ihrer listId
+     * @param listId
+     * @return true, wenn Liste entfernt
+     */
     public boolean deleteWunschliste(int listId) {
         String sql = "DELETE FROM Wunschliste WHERE ListID = ?";
         try (Connection conn = new MySQLAccess().getConnection();
