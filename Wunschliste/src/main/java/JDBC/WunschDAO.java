@@ -11,6 +11,14 @@ import beans.Wunsch;
 
 public class WunschDAO {
 
+
+    /***
+     * Wunsch wird angelegt sowie die dazu passende ListID
+     * zur identifizierung des Wunsches
+     * @param wunsch
+     * @param ListID
+     * @return
+     */
     public boolean addWunsch(Wunsch wunsch, int ListID) {
         String sql = "INSERT INTO Wunsch (title, price, priority, link, isGroupGift, ListID) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -40,6 +48,11 @@ public class WunschDAO {
         }
     }
 
+    /***
+     * Wunsch mit der ListID aus der Datenbank abrufen
+     * @param ListID
+     * @return
+     */
     public List<Wunsch> getWuenscheByListe(int ListID) {
         List<Wunsch> wunschListe = new ArrayList<>();
         String sql = "SELECT * FROM Wunsch WHERE ListID = ? ORDER BY priority DESC";
@@ -79,6 +92,12 @@ public class WunschDAO {
         return wunschListe;
     }
 
+    /***
+     * Hier wird der Wunsch aktualisiert bzw geupdatet
+     * Alle Attribute von Wunsch werden hier benötigt zum updaten
+     * @param wunsch
+     * @return
+     */
     public boolean updateWunsch(Wunsch wunsch) {
         String sql = "UPDATE Wunsch SET title = ?, price = ?, priority = ?, link = ?, isGroupGift = ? WHERE GiftID = ?";
 
@@ -108,6 +127,11 @@ public class WunschDAO {
         }
     }
 
+    /**
+     * Wunsch aus der Datenbank anhand der GiftID (siehe Wunsch Klasse) entfernen.
+     * @param GiftID
+     * @return
+     */
     public boolean deleteWunsch(int GiftID) {
         String sql = "DELETE FROM Wunsch WHERE GiftID = ?";
 
@@ -131,7 +155,13 @@ public class WunschDAO {
             return false;
         }
     }
-    
+
+    /**
+     * Hier werden alle reservierten Wünsche des Nutzers zurückgegeben.
+     * Diese sind in einer "Wunschlsite"
+     * @param userId
+     * @return
+     */
     public List<Wunsch> getReservedWishesByUser(int userId) {
         List<Wunsch> liste = new ArrayList<>();
         // Wir joinen die Wunschliste-Tabelle, um an den Titel der Liste zu kommen
@@ -163,7 +193,12 @@ public class WunschDAO {
         }
         return liste;
     }
-    
+
+    /***
+     * Gibt uns den passenden Wunsch anhand der giftId zurück.
+     * @param giftId
+     * @return
+     */
     public Wunsch getWunschById(int giftId) {
         Wunsch w = null;
         // Achtung: Ich benutze hier "Wunsch" als Tabellenname, da dein INSERT das auch tut
@@ -197,7 +232,16 @@ public class WunschDAO {
         }
         return w;
     }
-    
+
+    /***
+     * Einzelner Wunsch wird anhand der Parameter
+     * @param id
+     * @param titel
+     * @param preis
+     * @param prio
+     * @param link
+     * aktualisiert in der Datenbank
+     */
     public void updateWunsch(int id, String titel, double preis, int prio, String link) {
         String sql = "UPDATE Wunsch SET title = ?, price = ?, priority = ?, link = ? WHERE giftId = ?";
 

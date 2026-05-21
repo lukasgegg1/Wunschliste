@@ -9,6 +9,12 @@ import beans.Nutzer;
 
 public class NutzerDAO {
 
+    /**
+     * Erzeugung des Nutzers mit Username, Password, Email.
+     * Anlegen und übertragung in die Datenbank
+     * @param nutzer
+     * @return
+     */
     public boolean registerUser(Nutzer nutzer) {
         String sql = "INSERT INTO Nutzer (username, password, email) VALUES (?, ?, ?)";
 
@@ -37,6 +43,14 @@ public class NutzerDAO {
         }
     }
 
+    /***
+     * Hier wird das Einloggen des Nutzers geprüft sowie bei Erfolg
+     * eingeloggt. Abruf des Nutzers durch querying der Datenbank.
+     * Parameter:
+     * @param username
+     * @param password
+     * @return Nutzer
+     */
     public Nutzer loginUser(String username, String password) {
         String sql = "SELECT * FROM Nutzer WHERE username = ? AND password = ?";
         Nutzer eingeloggterNutzer = null;
@@ -70,7 +84,12 @@ public class NutzerDAO {
 
         return eingeloggterNutzer;
     }
-    
+
+    /***
+     * Prüft, ob die Email vergeben ist, falls nicht, anlegen.
+     * @param email
+     * @return false = email verfügbar
+     */
     public boolean isEmailTaken(String email) {
         String sql = "SELECT COUNT(*) FROM Nutzer WHERE email = ?";
         try {
@@ -89,6 +108,12 @@ public class NutzerDAO {
         return false;
     }
 
+    /***
+     * Passwort wird anhand der zuvor geprüften Email geupdatet.
+     * @param email
+     * @param newPassword
+     * @return
+     */
     public boolean updatePasswordByEmail(String email, String newPassword) {
         String sql = "UPDATE Nutzer SET password = ? WHERE email = ?";
         try {

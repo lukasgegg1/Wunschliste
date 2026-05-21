@@ -2,6 +2,11 @@ package JDBC;
 
 import java.sql.SQLException;
 
+/**
+ * Eigene NoConnectionException Klasse
+ * Erbt von SQL Exception
+ * Gibt kurze "Message", bei Fehlschlag der Verbindung
+ */
 @SuppressWarnings("serial")
 public class NoConnectionException extends SQLException {
 
