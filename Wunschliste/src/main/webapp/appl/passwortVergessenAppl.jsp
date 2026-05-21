@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="beans.Nutzer" %>
 
+<%--
+    Passwort vergessen Appel
+    Email Attribut wird aus Formular geholten und geprüft
+    Passwort wird ebenfalls geprüft bei passender Email
+    Bei erfolg, wird Passwort zurueck gesetzt
+--%>
+
+
 <%
     // 1. Parameter aus dem Formular abrufen (name="email" aus der View)
     String emailEingabe = request.getParameter("email");

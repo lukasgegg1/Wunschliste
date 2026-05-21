@@ -5,6 +5,15 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 
+
+<%--
+    Anzeige der temporäre Sammel-Liste (Wunschliste)
+    Es koennen Wuensche zur Vorschau hinzugefuegt werden
+    sowie entfernt. Wenn passend kann durch speichern,
+    diese dann endgültig gespeichert werden
+--%>
+
+
 <%
     // 1. Sicherheit: Session-Check
     Nutzer aktuellerNutzer = (Nutzer) session.getAttribute("eingeloggterNutzer");

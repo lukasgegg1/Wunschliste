@@ -2,6 +2,15 @@
 <%@ page import="beans.Nutzer" %>
 <%@ page import="JDBC.NutzerDAO" %>
 
+
+<%--
+    Neuer Nutzer gibt Username, Passwort ein.
+    Grundlegende Prüfungen der Parameter.
+    Wenn alles korrekt ist, wird Nutzer erstellt
+    und weitergeleitet
+--%>
+
+
 <%
     String userEingabe = request.getParameter("username");
     String passEingabe = request.getParameter("password");

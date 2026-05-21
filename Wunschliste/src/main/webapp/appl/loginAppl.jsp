@@ -2,6 +2,14 @@
 <%@ page import="beans.Nutzer" %>
 <%@ page import="JDBC.NutzerDAO" %>
 
+
+
+<%--
+    Einloggen des Nutzers
+    Hier wird zusätzlich die Validierung gemacht
+    Falls fehler bei der Validierung kommt es zum Error.
+--%>
+
 <%
     String userEingabe = request.getParameter("username");
     String passEingabe = request.getParameter("password");

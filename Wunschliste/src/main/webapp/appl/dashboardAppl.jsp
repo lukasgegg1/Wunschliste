@@ -4,7 +4,14 @@
 
 
 
-
+<%--
+   Dashboard anzeigen
+   Nutzer wird wieder eingeloggt
+   Möglichkeit die Liste zu öffnen und
+   dann weiter zur WunschlisteView zu leiten
+   Möglichkeit die Liste zu loeschen
+   Wenn nichts zutrifft wieder zurückleiten
+--%>
 
 
 

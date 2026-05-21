@@ -4,6 +4,16 @@
 <%@ page import="JDBC.WunschlisteDAO" %>
 <%@ page import="JDBC.WunschDAO" %>
 
+
+<%--
+    Wunschliste durch uebergebene Id anzeigen.
+    Hier kann der Besitzer der Wunschliste
+    passende Wuensche ergänzen und loeschen.
+    Der Gast sieht sieht die gewuenschten Wuensche
+    und kann sie reservieren
+--%>
+
+
 <%
     // 1. Sicherheit: Session-Check
     Nutzer aktuellerNutzer = (Nutzer) session.getAttribute("eingeloggterNutzer");

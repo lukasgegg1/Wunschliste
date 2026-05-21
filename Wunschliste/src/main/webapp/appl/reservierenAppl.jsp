@@ -5,6 +5,17 @@
 <%@ page import="beans.Reservierungen" %>
 <%@ page import="JDBC.ReservierungDAO" %>
 
+<%--
+    Aktueller Nutzer wird eingeloggt
+    Wunschliste wird anhand ihrer Id geholt (inkl. prüfung)
+    Es gibt nun die Moeglichkeit Wuensche zu reservieren
+    und die passenden Parameter anzugeben oder die Reservierung
+    abzubrechen.
+    Weiterleitung zum  Dashboard.
+--%>
+
+
+
 <%
     Nutzer aktuellerNutzer = (Nutzer) session.getAttribute("eingeloggterNutzer");
     if (aktuellerNutzer == null) {

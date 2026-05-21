@@ -2,6 +2,16 @@
 <%@ page import="JDBC.WunschlisteDAO" %>
 <%@ page import="beans.Wunschliste" %>
 
+
+
+<%--
+   Hier wird die Wunschliste anhand des passenden Tokens
+   in der Datenbank rausgesucht
+   Listen-Detailansicht anzeigen
+   ansonsten  zurueck zur Startseite
+--%>
+
+
 <%
     String shareToken = request.getParameter("listCode");
 
