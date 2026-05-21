@@ -16,13 +16,24 @@ public class Wunschliste {
 	public Wunschliste() {
 
 	}
-	
+
+
+	/***
+	 * Prüft, ob das aktuelle Datum nach dem Event-Datum liegt.
+	 * @return true = eventDate
+	 */
 	public boolean isExpired() {
 	    if (this.eventDate == null) return false;
-	    // Prüft, ob das aktuelle Datum nach dem Event-Datum liegt
 	    return new java.util.Date().after(this.eventDate);
 	}
 
+
+	/***
+	 * Prüft, ob der übergebene Nutzer auch der tatsächliche
+	 * Nutzer ist.
+	 * @param u
+	 * @return true, bei identischer nutzer & user Id
+	 */
 	public boolean isOwner(Nutzer u) {
 		if (u == null) {
 			return false;
@@ -30,6 +41,12 @@ public class Wunschliste {
 		return this.ownerId == u.getUserid();
 	}
 
+
+	/***
+	 * Fügt Wunsch zur Geschenkliste hinzu.
+	 * Wunsch kann nicht "leer" sein.
+	 * @param w
+	 */
 	public void addGift(Wunsch w) {
 		if (w != null) {
 			this.geschenkeListe.add(w);
@@ -40,6 +57,11 @@ public class Wunschliste {
 		return this.geschenkeListe;
 	}
 
+	/***
+	 * Gibt den Gesamtbetrag der Geschenkliste durch das
+	 * addieren der einzelnen Geschenke.
+	 * @return  Gesamtbetrag
+	 */
 	public double calculateTotalBudget() {
 		double total = 0.0;
 		for (Wunsch w : geschenkeListe) {
@@ -48,6 +70,11 @@ public class Wunschliste {
 		return total;
 	}
 
+
+	/***
+	 * Prüft, ob das Datum vor dem aktuellen Datum ist.
+	 * @return
+	 */
 	public boolean checkTimer() {
 		if (this.eventDate == null) {
 			return false;
