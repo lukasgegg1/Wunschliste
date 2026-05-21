@@ -13,6 +13,12 @@ public class Nutzer {
 
 	}
 
+	/**
+	 * Prüft, ob Nutzer sich einloggen kann.
+	 * Validiert die login Daten - Username & Passwort
+	 * @return false = kein login
+	 * @return true  = login
+	 */
 	public boolean login() {
         NutzerDAO dao = new NutzerDAO();
         Nutzer validierterNutzer = dao.loginUser(this.username, this.password);
