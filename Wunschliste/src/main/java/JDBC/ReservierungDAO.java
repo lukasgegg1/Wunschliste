@@ -79,7 +79,7 @@ public class ReservierungDAO {
      * Aktualisierung des Reservierungs Gesamtbetrag
      * @param reservationId
      * @param newAmount
-     * @return
+     * @return updated amount
      */
     public boolean updateReservationAmount(int reservationId, double newAmount) {
         String sql = "UPDATE Reservierungen SET reservedAmount = ? WHERE reservationId = ?";
