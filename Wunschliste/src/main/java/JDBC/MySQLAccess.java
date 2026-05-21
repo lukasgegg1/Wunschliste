@@ -1,11 +1,18 @@
 package JDBC;
 
+/***
+ *Klasse für den Verbindungsaufbau der MySQL Datenbank
+ */
 public class MySQLAccess extends JDBCAccess {
 
     public MySQLAccess() throws NoConnectionException {
         super();
     }
 
+    /**
+     * Methode zum übergeben der Parameter für die Datenbankverbindung
+     * @Override der abstrakten Methode aus JDBC Access
+     */
     @Override
     public void setDBParms() {
         dbDrivername = "com.mysql.cj.jdbc.Driver";
@@ -15,6 +22,11 @@ public class MySQLAccess extends JDBCAccess {
         dbSchema     = "Wunschliste";
     }
 
+    /**
+     * Verbindung zur DB afbauen.
+     * @param args
+     * @throws NoConnectionException
+     */
     public static void main(String[] args) throws NoConnectionException {
         // Ein kleiner Test, um zu sehen, ob es klappt
         MySQLAccess access = new MySQLAccess();

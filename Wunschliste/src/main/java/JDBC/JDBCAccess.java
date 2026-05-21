@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 //import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Abstrakte Klasse für JDBC Access
+ */
 public abstract class JDBCAccess {
 
 	Connection dbConn;
@@ -18,8 +21,16 @@ public abstract class JDBCAccess {
 		this.createConnection();
 		this.setSchema();
 	}
+
+	/**
+	 * Abstrakte Methode zur setzung der Datenbank Parameter
+	 */
 	public abstract void setDBParms();
 
+	/**
+	 * Erzeuge das Schema der Datenbank
+	 * @throws NoConnectionException
+	 */
 	public void setSchema() throws NoConnectionException {
 		try{
 			String sql = "USE "+ dbSchema;
@@ -31,6 +42,12 @@ public abstract class JDBCAccess {
 			throw new NoConnectionException();
 		}
 	}
+
+	/***
+	 * Methode für das erzeugen der Verbindung des DB-Driver
+	 * und übergabe der Attribute.
+	 * @throws NoConnectionException
+	 */
 	public void createConnection() throws NoConnectionException{
 		try{
 			Class.forName(dbDrivername);
@@ -47,6 +64,12 @@ public abstract class JDBCAccess {
 			throw new NoConnectionException();
 		}
 	}
+
+	/**
+	 * Versuche die Verbindung aufzubauen.
+	 * @return Connection object für die Verbindung der DB
+	 * @throws NoConnectionException
+	 */
 	public Connection getConnection() throws NoConnectionException {
 		try{
 			this.setSchema();
